@@ -1,0 +1,23 @@
+Setup & Run Instructions
+========================
+
+1. Create the virtual environment (first time only):
+   python -m venv sales_analyzer_env
+
+2. Activate the virtual environment:
+   source sales_analyzer_env/bin/activate
+
+3. Ensure your .env file has your Google API key:
+   GOOGLE_API_KEY=your_key_here
+
+4. Install dependencies (if not already done):
+   pip install -r requirements.txt
+
+5. Generate dummy sales data (first time only):
+   python create_dummy_data.py
+
+6. Run the program:
+   python sales_analysis_agent.py
+
+Then type queries like "What is the total sales for Laptops in South in 2024?" at the prompt.
+Type 'history' to view recent queries, 'exit' to quit.

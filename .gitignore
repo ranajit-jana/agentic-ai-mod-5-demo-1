@@ -1,0 +1,29 @@
+# Environment
+.env
+.env.*
+
+# Python virtual environment
+sales_analyzer_env/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Index storage
+index_storage/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
