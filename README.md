@@ -16,6 +16,29 @@ The agent (ReAct loop) decides which tool to call based on your query, reasons s
 
 ---
 
+## Technology Clarification: LlamaIndex vs Meta's LLaMA
+
+These are two completely different things — easy to confuse:
+
+| | LlamaIndex | Meta's LLaMA |
+|---|---|---|
+| Type | Framework / library | LLM Model |
+| Made by | Jerry Liu / LlamaIndex Inc. | Meta AI |
+| Purpose | Build RAG pipelines, agents, tools | Open-source language model |
+| Used in this project | Yes | No |
+
+**LlamaIndex** (used here) is a framework for building LLM-powered applications — formerly called "GPT Index", renamed in 2023. The name has nothing to do with Meta.
+
+**Meta's LLaMA** is an open-source LLM (like GPT-4 or Gemini) that you can run locally via Ollama or HuggingFace.
+
+This project uses **LlamaIndex** as the framework with **Google Gemini** as the LLM:
+```python
+from llama_index.llms.google_genai import GoogleGenAI          # LlamaIndex framework
+from llama_index.embeddings.google_genai import GoogleGenAIEmbedding  # LlamaIndex framework
+```
+
+---
+
 ## Agent Strategy: ReActAgent
 
 ### What is ReAct?
