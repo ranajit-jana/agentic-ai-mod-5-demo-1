@@ -87,6 +87,60 @@ With `verbose=True` you can see each Thought/Action/Observation step printed in 
 
 ---
 
+## LlamaIndex Workflows vs LangGraph
+
+For more complex orchestration beyond a single agent, both LlamaIndex and LangGraph offer workflow capabilities.
+
+### LangGraph
+- Built specifically for **complex, stateful, graph-based workflows**
+- You define nodes + edges explicitly as a **directed graph**
+- Fine-grained control over state transitions, branching, and loops
+- Stronger for: multi-agent systems, human-in-the-loop, conditional routing
+
+### LlamaIndex Workflows
+- Uses an **event-driven architecture** (since v0.10)
+- Steps emit events, other steps listen and react
+- Naturally integrates with LlamaIndex tools and RAG pipelines
+- Better for: RAG-heavy workflows, agent tool chains, document processing
+
+### Code Style Comparison
+
+**LangGraph:**
+```python
+graph = StateGraph(State)
+graph.add_node("retrieve", retrieve_fn)
+graph.add_node("generate", generate_fn)
+graph.add_edge("retrieve", "generate")
+```
+
+**LlamaIndex Workflow:**
+```python
+class SalesWorkflow(Workflow):
+    @step
+    async def retrieve(self, ev: StartEvent) -> RetrieveEvent:
+        ...
+    @step
+    async def generate(self, ev: RetrieveEvent) -> StopEvent:
+        ...
+```
+
+### Feature Comparison
+
+| Feature | LlamaIndex Workflows | LangGraph |
+|---|---|---|
+| Complex branching | Yes | Yes (more visual) |
+| Stateful multi-agent | Yes (newer) | Stronger, battle-tested |
+| Human-in-the-loop | Limited | First-class support |
+| RAG pipelines | Excellent | Needs more setup |
+| Learning curve | Moderate | Steeper |
+| Best for | RAG + agent tools | Complex multi-agent orchestration |
+
+### For This Project
+
+The current `ReActAgent` is already a workflow internally. LangGraph would be overkill for a sales analysis tool. You'd only need to upgrade if you required: approval steps before answering, parallel tool execution, or complex conditional routing based on query type.
+
+---
+
 ### Index Storage
 On first run, the agent embeds all sales records and saves the vector index to `index_storage/` (auto-created). On subsequent runs it loads from disk, skipping re-embedding.
 
